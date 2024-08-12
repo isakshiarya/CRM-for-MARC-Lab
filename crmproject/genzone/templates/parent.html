@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>CRM For MARC Lab</title>
+    <link href="{% static 'css/style1.css' %}" rel="stylesheet" type="text/css"/>
+    <script>
+        var imgnames=["image1.jpg","image2.jpg","image3.jpg","image4.jpg"];
+        var i=0;
+        baseUrl="{% static 'images/'%}";
+        function moveSlider()
+        {
+           if(i==imgnames.length)
+           {
+            i=0;
+           }
+           document.getElementById("slide").src=baseUrl+imgnames[i];
+           i++;
+           window.setTimeout("moveSlider()",2000);
+        }
+    </script>
+</head>
+<body bgcolor="red" onload="moveSlider()">
+    <div id="outer">
+        <div id="header">
+            <div id="logo">
+                <img src="{% static 'images/logo.jpg'%}"/>
+            </div>
+            <div id="title">
+                Customer Relationship Management
+            </div>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'registration' %}">Registration</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                <li><a href="{% url 'adminlogin' %}">Admin Login</a></li>
+            </ul>
+        </div>
+        <div id="slider">
+            <img id="slide" width="1000" height="250"/>
+        </div>
+        <div id="main">
+            <div id="left">
+                <marquee direction="up" height="600" onmouseover="stop()" onmouseout="start()">
+                {% for n in nf %}
+                <p style="color:red;">{{n.notificationtext}}</p>
+                <p>{{n.notificationdate}}</p>
+                {% endfor %}
+                </marquee>
+            </div>
+            <div id="right">
+                {% block body %}
+                {% endblock body %}
+            </div>
+        </div>
+        <div id="footer">
+            <div id="lfooter">
+                Copyright &copy; to MARC Lab.
+            </div>
+            <div id="rfooter">
+                Developed By: Brijesh Mishra
+            </div>
+        </div>
+    </div>
+</body>
+</html>
